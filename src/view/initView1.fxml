@@ -22,7 +22,7 @@
 				<Menu mnemonicParsing="false" text="文件">
 					<items>
 						<MenuItem mnemonicParsing="false" text="打开" />
-						<MenuItem mnemonicParsing="false" text="导出" />
+						<MenuItem mnemonicParsing="false" onAction="#screenshot" text="导出" />
 						<MenuItem mnemonicParsing="false" text="退出" />
 					</items>
 				</Menu>

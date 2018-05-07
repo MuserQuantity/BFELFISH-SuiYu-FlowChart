@@ -1,12 +1,17 @@
 package view;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Stack;
 
+import javax.imageio.ImageIO;
+
 import control.MyUtil;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
@@ -15,6 +20,7 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import memento.Caretaker;
 import memento.Memento;
 import symbols.CCircle;
@@ -30,6 +36,7 @@ import javafx.scene.ParallelCamera;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Light.Point;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -408,4 +415,19 @@ public class BorderPaneController {
 		if (textBox != null)
 			pane.getChildren().add(textBox);
 	}
+	@FXML
+    public void screenshot(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save Image");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+        File file = fileChooser.showSaveDialog(null);
+        WritableImage snapshot=pane.snapshot(null,null);
+        if (file != null) {
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(snapshot,null), "png", file);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 }
